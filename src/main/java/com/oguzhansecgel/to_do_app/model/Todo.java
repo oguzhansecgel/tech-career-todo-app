@@ -1,6 +1,7 @@
 package com.oguzhansecgel.to_do_app.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "to-do-list")

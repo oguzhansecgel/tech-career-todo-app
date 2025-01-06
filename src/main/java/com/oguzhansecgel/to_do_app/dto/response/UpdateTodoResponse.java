@@ -1,15 +1,19 @@
 package com.oguzhansecgel.to_do_app.dto.response;
 
+import com.oguzhansecgel.to_do_app.model.Status;
+import jakarta.validation.constraints.NotEmpty;
+
 public class UpdateTodoResponse {
     private int id;
+
     private String todoDescription;
 
-    private String status;
+    private Status status;
 
     public UpdateTodoResponse() {
     }
 
-    public UpdateTodoResponse(int id, String todoDescription, String status) {
+    public UpdateTodoResponse(int id, String todoDescription, Status status) {
         this.id = id;
         this.todoDescription = todoDescription;
         this.status = status;
@@ -31,11 +35,11 @@ public class UpdateTodoResponse {
         this.todoDescription = todoDescription;
     }
 
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 }

@@ -6,12 +6,12 @@ public class CreateTodoResponse {
     private int id;
     private String todoDescription;
 
-    private String status;
+    private Status status;
 
     public CreateTodoResponse() {
     }
 
-    public CreateTodoResponse(int id, String todoDescription, String status) {
+    public CreateTodoResponse(int id, String todoDescription, Status status) {
         this.id = id;
         this.todoDescription = todoDescription;
         this.status = status;
@@ -33,11 +33,11 @@ public class CreateTodoResponse {
         this.todoDescription = todoDescription;
     }
 
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 }

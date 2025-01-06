@@ -1,7 +1,23 @@
 package com.oguzhansecgel.to_do_app.repository;
 
+import com.oguzhansecgel.to_do_app.dto.response.GetAllListTodoResponse;
+import com.oguzhansecgel.to_do_app.model.Status;
 import com.oguzhansecgel.to_do_app.model.Todo;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import java.util.List;
+
 
 public interface TodoRepository extends JpaRepository<Todo,Integer> {
+
+    List<Todo> findByStatus(Status status);
+
+    default List<Todo> findAllDoneTodos() {
+        return findByStatus(Status.DONE);
+    }
+
+    default List<Todo> findAllContinueTodos() {
+        return findByStatus(Status.CONTUNIE);
+    }
 }
