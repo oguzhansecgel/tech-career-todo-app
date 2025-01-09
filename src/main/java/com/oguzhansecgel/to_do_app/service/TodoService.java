@@ -7,6 +7,7 @@ import com.oguzhansecgel.to_do_app.dto.response.GetAllListTodoResponse;
 import com.oguzhansecgel.to_do_app.dto.response.GetByIdTodoResponse;
 import com.oguzhansecgel.to_do_app.dto.response.UpdateTodoResponse;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,5 +18,10 @@ public interface TodoService {
     List<GetAllListTodoResponse> getAllListTodo();
     Optional<GetByIdTodoResponse> getById(int id);
     List<GetAllListTodoResponse> getAllDoneTodos();
-    List<GetAllListTodoResponse> getAllContinueTodos();
+    List<GetAllListTodoResponse> getAllCompletedTodos();
+    List<GetAllListTodoResponse> getAllNotStartedTodos();
+    List<GetAllListTodoResponse> getAllPendingTodos();
+    List<GetAllListTodoResponse> getAllCancelledTodos();
+    List<GetAllListTodoResponse> getTodosByStartedTime(LocalDate startedTime);
+    List<GetAllListTodoResponse> getTodosByFinishTime(LocalDate finishTime);
 }

@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  todo-app:
+    container_name: todo-app
+    build:
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    restart: on-failure
+    networks:
+      - common
+    depends_on:
+      - todo-app-db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://todo-app-db:5432/tech-career-todo
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=test
+
+  todo-app-db:
+    container_name: todo-app-db
+    image: postgres:latest
+    environment:
+      POSTGRES_DB : todo-app
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: test
+    ports:
+      - "5450:5432"
+    volumes:
+      - todo-app:/var/lib/postgresql/data
+    networks:
+      - common
+networks:
+  common:
+    driver: bridge
+
+volumes:
+  todo-app:
+    driver: local

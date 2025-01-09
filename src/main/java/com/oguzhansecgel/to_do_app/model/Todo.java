@@ -1,7 +1,8 @@
 package com.oguzhansecgel.to_do_app.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotEmpty;
+
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "to-do-list")
@@ -12,15 +13,19 @@ public class Todo {
     private int id;
 
     private String todoDescription;
+    private LocalDate startedTime;
+    private LocalDate  finishTime;
 
     @Enumerated(EnumType.STRING)
-    private Status status;
+    private Status status = Status.NOT_STARTED;
     public Todo() {
     }
 
-    public Todo(int id, String todoDescription, Status status) {
+    public Todo(int id, String todoDescription, LocalDate startedTime, LocalDate finishTime, Status status) {
         this.id = id;
         this.todoDescription = todoDescription;
+        this.startedTime = startedTime;
+        this.finishTime = finishTime;
         this.status = status;
     }
 
@@ -38,6 +43,22 @@ public class Todo {
 
     public void setTodoDescription(String todoDescription) {
         this.todoDescription = todoDescription;
+    }
+
+    public LocalDate getStartedTime() {
+        return startedTime;
+    }
+
+    public void setStartedTime(LocalDate startedTime) {
+        this.startedTime = startedTime;
+    }
+
+    public LocalDate getFinishTime() {
+        return finishTime;
+    }
+
+    public void setFinishTime(LocalDate finishTime) {
+        this.finishTime = finishTime;
     }
 
     public Status getStatus() {

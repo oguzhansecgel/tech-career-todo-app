@@ -10,8 +10,11 @@ import com.oguzhansecgel.to_do_app.mapper.TodoMapping;
 import com.oguzhansecgel.to_do_app.model.Todo;
 import com.oguzhansecgel.to_do_app.repository.TodoRepository;
 import com.oguzhansecgel.to_do_app.service.TodoService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,7 +23,7 @@ public class TodoServiceImpl implements TodoService {
 
 
     private final TodoRepository todoRepository;
-
+    private final Logger log = LoggerFactory.getLogger(TodoServiceImpl.class);
     public TodoServiceImpl(TodoRepository todoRepository) {
         this.todoRepository = todoRepository;
     }
@@ -29,7 +32,8 @@ public class TodoServiceImpl implements TodoService {
     public CreateTodoResponse createTodo(CreateTodoRequest createTodoRequest) {
         Todo todo = TodoMapping.INSTANCE.createTodo(createTodoRequest);
         Todo savedTodo = todoRepository.save(todo);
-        return new CreateTodoResponse(savedTodo.getId(), savedTodo.getTodoDescription(),savedTodo.getStatus());
+        log.info("Todo created: " + savedTodo);
+        return new CreateTodoResponse(savedTodo.getId(), savedTodo.getTodoDescription(),savedTodo.getStartedTime(),savedTodo.getFinishTime(),savedTodo.getStatus());
     }
 
     @Override
@@ -37,7 +41,8 @@ public class TodoServiceImpl implements TodoService {
         Todo existingTodo = todoRepository.findById(id).orElse(null);
         Todo todo = TodoMapping.INSTANCE.updateTodo(updateTodoRequest, existingTodo);
         Todo savedTodo = todoRepository.save(todo);
-        return new UpdateTodoResponse(savedTodo.getId(), savedTodo.getTodoDescription(),savedTodo.getStatus());
+        log.info("Todo updated: " + savedTodo);
+        return new UpdateTodoResponse(savedTodo.getId(), savedTodo.getTodoDescription(),savedTodo.getStartedTime(),savedTodo.getFinishTime(),savedTodo.getStatus());
     }
 
     @Override
@@ -67,8 +72,38 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Override
-    public List<GetAllListTodoResponse> getAllContinueTodos() {
-        List<Todo> todos = todoRepository.findAllContinueTodos();
+    public List<GetAllListTodoResponse> getAllCompletedTodos() {
+        List<Todo> todos = todoRepository.findAllCompletedTodos();
+        return TodoMapping.INSTANCE.getAllListToTodoResponse(todos);
+    }
+
+    @Override
+    public List<GetAllListTodoResponse> getAllNotStartedTodos() {
+        List<Todo> todos = todoRepository.findAllNotStartedTodos();
+        return TodoMapping.INSTANCE.getAllListToTodoResponse(todos);
+    }
+
+    @Override
+    public List<GetAllListTodoResponse> getAllPendingTodos() {
+        List<Todo> todos = todoRepository.findAllPendingTodos();
+        return TodoMapping.INSTANCE.getAllListToTodoResponse(todos);
+    }
+
+    @Override
+    public List<GetAllListTodoResponse> getAllCancelledTodos() {
+        List<Todo> todos = todoRepository.findAllCancelledTodos();
+        return TodoMapping.INSTANCE.getAllListToTodoResponse(todos);
+    }
+
+    @Override
+    public List<GetAllListTodoResponse> getTodosByStartedTime(LocalDate startedTime) {
+        List<Todo> todos = todoRepository.findByStartedTime(startedTime);
+        return TodoMapping.INSTANCE.getAllListToTodoResponse(todos);
+    }
+
+    @Override
+    public List<GetAllListTodoResponse> getTodosByFinishTime(LocalDate finishTime) {
+        List<Todo> todos = todoRepository.findByFinishTime(finishTime);
         return TodoMapping.INSTANCE.getAllListToTodoResponse(todos);
     }
 }

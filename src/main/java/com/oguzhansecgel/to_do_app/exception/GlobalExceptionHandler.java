@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ApiResult> handleValidationExceptions(MethodArgumentNotValidException ex, HttpServletRequest request) {
+    public ResponseEntity<ApiResponse<Object>> handleValidationExceptions(MethodArgumentNotValidException ex, HttpServletRequest request) {
         String errorMessage = ex.getBindingResult().getAllErrors().get(0).getDefaultMessage();
 
         Map<String, Object> validationErrors = ex.getBindingResult()
@@ -23,12 +23,14 @@ public class GlobalExceptionHandler {
                 .stream()
                 .collect(Collectors.toMap(FieldError::getField, FieldError::getDefaultMessage));
 
-        ApiResult response = new ApiResult();
-        response.setStatus(HttpStatus.BAD_REQUEST.value());
-        response.setError("Validation Error");
-        response.setMessage(errorMessage);
-        response.setPath(request.getRequestURI());
-        response.setValidationErrors(validationErrors);
+        ApiResponse<Object> response = new ApiResponse<>(
+                false,
+                errorMessage,
+                HttpStatus.BAD_REQUEST.value(),
+                "Validation Error",
+                request.getRequestURI(),
+                validationErrors
+        );
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
     }

@@ -1,20 +1,23 @@
 package com.oguzhansecgel.to_do_app.dto.request;
 
-import com.oguzhansecgel.to_do_app.model.Status;
 import jakarta.validation.constraints.NotEmpty;
+
+import java.time.LocalDate;
 
 public class CreateTodoRequest {
 
     @NotEmpty(message = "{todo.description.validation.constraints.NotNull.message}")
     private String todoDescription;
-    private Status status;
+    private LocalDate startedTime;
+    private LocalDate  finishTime;
 
     public CreateTodoRequest() {
     }
 
-    public CreateTodoRequest(String todoDescription, Status status) {
+    public CreateTodoRequest(String todoDescription, LocalDate startedTime, LocalDate finishTime) {
         this.todoDescription = todoDescription;
-        this.status = status;
+        this.startedTime = startedTime;
+        this.finishTime = finishTime;
     }
 
     public @NotEmpty(message = "{todo.description.validation.constraints.NotNull.message}") String getTodoDescription() {
@@ -25,11 +28,21 @@ public class CreateTodoRequest {
         this.todoDescription = todoDescription;
     }
 
-    public Status getStatus() {
-        return status;
+    public LocalDate getStartedTime() {
+        return startedTime;
     }
 
-    public void setStatus(Status status) {
-        this.status = status;
+    public void setStartedTime(LocalDate startedTime) {
+        this.startedTime = startedTime;
     }
+
+    public LocalDate getFinishTime() {
+        return finishTime;
+    }
+
+    public void setFinishTime(LocalDate finishTime) {
+        this.finishTime = finishTime;
+    }
+
+
 }
