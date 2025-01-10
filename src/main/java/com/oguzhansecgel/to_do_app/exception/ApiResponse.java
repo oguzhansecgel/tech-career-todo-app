@@ -11,7 +11,6 @@ public class ApiResponse<T> {
     private Map<String, Object> validationErrors;
     private T data;
 
-    // Başarı yanıtı için constructor
     public ApiResponse(boolean success, String message, int status, T data, String path) {
         this.success = success;
         this.message = message;
@@ -20,7 +19,6 @@ public class ApiResponse<T> {
         this.path = path;
     }
 
-    // Hata yanıtı için constructor
     public ApiResponse(boolean success, String message, int status, String error, String path, Map<String, Object> validationErrors) {
         this.success = success;
         this.message = message;

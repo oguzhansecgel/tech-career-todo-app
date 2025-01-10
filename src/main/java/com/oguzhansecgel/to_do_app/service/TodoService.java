@@ -18,7 +18,7 @@ public interface TodoService {
     List<GetAllListTodoResponse> getAllListTodo();
     Optional<GetByIdTodoResponse> getById(int id);
     List<GetAllListTodoResponse> getAllDoneTodos();
-    List<GetAllListTodoResponse> getAllCompletedTodos();
+    List<GetAllListTodoResponse> getAllInProgressTodos();
     List<GetAllListTodoResponse> getAllNotStartedTodos();
     List<GetAllListTodoResponse> getAllPendingTodos();
     List<GetAllListTodoResponse> getAllCancelledTodos();

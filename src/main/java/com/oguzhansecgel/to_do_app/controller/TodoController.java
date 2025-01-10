@@ -33,8 +33,8 @@ public class TodoController {
     }
 
     @GetMapping("/find/by/status/completed/jobs")
-    public ApiResponse<List<GetAllListTodoResponse>> getAllTodoStatusCompleted() {
-        List<GetAllListTodoResponse> response = todoService.getAllCompletedTodos();
+    public ApiResponse<List<GetAllListTodoResponse>> getAllInProgressTodos() {
+        List<GetAllListTodoResponse> response = todoService.getAllInProgressTodos();
         return new ApiResponse<>(true, "success", HttpStatus.OK.value(), response, "/api/v1/todo/find/by/status/completed/jobs");
     }
 

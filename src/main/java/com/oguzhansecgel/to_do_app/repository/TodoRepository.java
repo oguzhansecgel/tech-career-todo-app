@@ -21,8 +21,8 @@ public interface TodoRepository extends JpaRepository<Todo,Integer> {
         return findByStatus(Status.DONE);
     }
 
-    default List<Todo> findAllCompletedTodos() {
-        return findByStatus(Status.COMPLETED);
+    default List<Todo> findAllInProgressTodos() {
+        return findByStatus(Status.IN_PROGRESS);
     }
     default List<Todo> findAllNotStartedTodos() {
         return findByStatus(Status.NOT_STARTED);

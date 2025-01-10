@@ -72,8 +72,8 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Override
-    public List<GetAllListTodoResponse> getAllCompletedTodos() {
-        List<Todo> todos = todoRepository.findAllCompletedTodos();
+    public List<GetAllListTodoResponse> getAllInProgressTodos() {
+        List<Todo> todos = todoRepository.findAllInProgressTodos();
         return TodoMapping.INSTANCE.getAllListToTodoResponse(todos);
     }
 
